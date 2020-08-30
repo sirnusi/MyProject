@@ -1,0 +1,51 @@
+{% extends 'blogapp/base.html' %}
+{% block body_block %}
+    <div class="blog-table">
+        <h2><a href="{% url 'post_new' %}">&#9997 New Post</a></h2>
+        <h2><a href="{% url 'new_cat' %}">&#9997 Add New Category</a></h2>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+               
+                <th scope="col">Title</th>
+                <th scope="col">Actions</th>
+                <th scope="col">Delete</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+              <tr>
+                <td>{{post.title}}</td>
+                <td><a class="btn btn-danger" href="{% url 'post_update' post.slug %}">&#9998 Edit</a></td>
+                <td><a class="btn btn-danger" href="{% url 'post_delete' post.slug %}">&#128465 Delete</a></td>
+              </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="blog-table">
+      <h2><a href="{% url 'article_new' %}">&#9997 New Article</a></h2>
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+             
+              <th scope="col">Article</th>
+              <th scope="col">Actions</th>
+              <th scope="col">Delete</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+              {% for post in articles %}
+            <tr>
+              <td>{{post.title}}</td>
+              <td><a class="btn btn-danger" href="{% url 'article_update' post.slug %}">&#9998 Edit</a></td>
+              <td><a class="btn btn-danger" href="{% url 'article_delete' post.slug %}">&#128465 Delete</a></td>
+            </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+{% include 'blogapp/pagination.html' %}
+{% endblock %}

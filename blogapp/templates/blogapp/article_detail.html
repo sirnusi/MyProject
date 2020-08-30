@@ -1,0 +1,41 @@
+{% extends 'blogapp/base.html' %}
+
+{% load static %}
+{% block p_block %}
+<link rel="stylesheet" href="{% static 'css/blogstyle2.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<div class="row">
+<main class="post blog-post col-lg-8"> 
+        <div class="container">
+          <div class="post-single">
+          <div class="post-thumbnail"><img style="margin-top: 35px;" src="{{ object.thumbnail.url }}" alt="..." class="img-fluid"></div>
+          <div class="post-details">
+          <h1>{{object.title}}</h1>
+          <div class="post-footer d-flex align-items-center">
+            <p href="#" class="author d-flex align-items-center flex-wrap">
+              <div class="avatar"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid"></div>
+              <div class="title"><span>Written by TimilehinOJB</span></div></p>
+              <div class="comments meta-last"><i style="margin-left: 10px;" class="fas fa-eye"> {{object.view_count}}</i>
+                <i style="margin-left: 10px;" class="fas fa-heart"> {{object.likes.count}} Like(s)</i>
+              </div>
+          </div>
+          <div class="post-body">
+            <p class="lead">{{object.content | safe}}</p>
+          </div>
+          
+          <form action="{% url 'like_post' article.pk %}" method="POST">
+              {% csrf_token %}
+              {% if request.user.is_authenticated %}
+                <button type="submit", name="article_id" value="{{ article.pk }}" class="fas fa-heart"></button>
+                {{object.likes.count}} Like(s)
+              {% else %}
+                <a href="{% url 'login' %}">Log In, You Probably Forgot.</a>
+              {% endif %}
+          </form>
+        </div>
+      </div>
+    </div>  
+  </main>
+  
+</div>
+{% endblock %}

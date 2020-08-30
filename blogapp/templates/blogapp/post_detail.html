@@ -1,0 +1,83 @@
+{% extends 'blogapp/base.html' %}
+
+{% load static %}
+{% block p_block %}
+<link rel="stylesheet" href="{% static 'css/blogstyle2.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<div class="row">
+<main class="post blog-post col-lg-8"> 
+        <div class="container">
+          <div class="post-single">
+          <div class="post-thumbnail"><img style="margin-top: 35px;" src="{{ post.images.url }}" alt="..." class="img-fluid"></div>
+          <div class="post-details">
+            <div class="post-meta d-flex justify-content-between">
+              
+              <div class="category">
+               
+                <a href="{% url 'post_by_category' post.category %}">{{post.category}}</a>
+               
+              </div>
+            </div>
+          <h1>{{post.title}}</h1>
+          <div class="post-footer d-flex align-items-center">
+            <p href="#" class="author d-flex align-items-center flex-wrap">
+              <div class="avatar"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid"></div>
+              <div class="title"><span>Written by {{post.author.username }}</span></div></p>
+              <div class="comments meta-last"><i style="margin-left: 10px;" class="fas fa-eye"> {{post.view_count}}</i>
+                <i style="margin-left: 10px;" class="fas fa-comment">{{comment.count}} No of comments</i>
+              </div>
+          </div>
+          <div class="post-body">
+            <p class="lead">{{post.content | safe}}</p>
+          </div>
+
+
+          <!-- Comment -->
+          <div class="post-comments">
+            <header>
+              <h3 class="h6">Post Comment{{comments | pluralize }}<span class="no-of-comments">({{comments.count}})</span></h3>
+            </header>
+            {% for comment in comments %}
+            <div class="comment">
+              
+              <div class="comment-header d-flex justify-content-between">
+                <div class="user d-flex align-items-center">
+                  
+                  <div class="image"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid rounded-circle"></div>
+                  
+                  <div class="title"><strong>{{ comment.by.username }}</strong><span class="date">{{ comment.created_on | timesince }} ago</span></div>
+                </div>
+              </div>
+              <div class="comment-body">
+                
+                <p>{{ comment.content }}</p>
+              </div>
+              {% empty %}
+                <h1>There are no comments yet!</h1>
+              {% endfor %}
+            </div>
+            
+            <h4>Leave a comment on this post.</h4>
+            
+            <form action="." method="POST">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" class="btn btn-danger" value="Post Comment">
+            </form>
+            
+          </div>
+          <!-- End Comment -->
+
+          
+        </div>
+      </div>
+    </div>  
+  </main>
+  
+</div>
+
+<!--Comment Section-->
+
+
+
+{% endblock %}

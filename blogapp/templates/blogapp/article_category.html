@@ -1,0 +1,36 @@
+{% extends 'blogapp/base.html' %}
+
+{% load static %}
+{% block body_block %}
+
+<section class="latest-posts"> 
+    <div class="container">
+        <div class="row">
+          {% for article in article_list %}
+            <div class="post col-md-5">
+              <div class="post-thumbnail"><a style="margin-top: -30px;" href=""><img src="{{article.thumbnail.url}}" alt="No" class="img-fluid"></a></div>
+            <div class="post-details">
+            <div class="post-meta d-flex justify-content-between">
+             
+            </div>
+            
+            <a href="{% url 'article_detail' article.slug %}">
+              <h3 id="specialone" class="h4">{{article.title}}</h3>
+            </a>
+            
+              <p style="margin-top: -25px;" class="text-muted">{{ article.content|truncatewords:20 | safe }}</p>
+              <div class="post-footer d-flex align-items-center">
+                <p href="#" class="author d-flex align-items-center flex-wrap">
+                  <div class="avatar"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid"></div>
+                  <div class="title"><span>Written by TimilehinOJB</span></div></p>
+                  
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section> 
+  {% include 'blogapp/pagination.html' %}
+  
+  {% endblock %}
