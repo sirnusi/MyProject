@@ -85,7 +85,7 @@ class PostCategory(ListView):
         return Post.objects.filter(category=self.category)
 
     def get_context_data(self, **kwargs):
-        context = super(PostCategory, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['category'] = self.category
         return context
 

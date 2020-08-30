@@ -27,6 +27,8 @@
               </div>
             </div>
           </div>
+          {% empty %}
+            <h1>There are no articles yet!. Please <a href="{% url 'article_new' %}">Write an Article.</a></h1></p>
         {% endfor %}
       </div>
     </div>
