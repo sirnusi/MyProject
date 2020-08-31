@@ -24,10 +24,17 @@
           </div>
           
           <form action="{% url 'like_post' article.pk %}" method="POST">
+            
               {% csrf_token %}
+              <input type="hidden" name="article_id" value="{{ article.pk }}">
               {% if request.user.is_authenticated %}
-                <button type="submit", name="article_id" value="{{ article.pk }}" class="fas fa-heart"></button>
-                {{object.likes.count}} Like(s)
+                {% if request.user in object.likes.all %}
+                  <button type="submit" class="btn btn-danger">Unlike</button>
+                  {{object.likes.count}} Like(s)
+                {% else %}
+                <button type="submit" class="btn btn-success">Like</button>
+                  {{object.likes.count}} Like(s)
+                {% endif %}
               {% else %}
                 <a href="{% url 'login' %}">Log In, You Probably Forgot.</a>
               {% endif %}

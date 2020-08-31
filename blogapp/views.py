@@ -12,7 +12,13 @@ from .forms import PostForm
 
 def LikeView(request, pk):
     post = get_object_or_404(Article, id=request.POST.get('article_id'))
-    post.likes.add(request.user)
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
     return HttpResponseRedirect(reverse('article_cat'))
     
 
