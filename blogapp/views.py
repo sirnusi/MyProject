@@ -28,8 +28,8 @@ class Home(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['posts'] = Post.objects.order_by('-pub_date')[:6]
-        context['articles'] = Article.objects.order_by('-timestamp')[:6]
+        context['posts'] = Post.objects.all()[:9]
+        context['articles'] = Article.objects.all()[:9]
         return context
 
 

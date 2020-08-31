@@ -27,6 +27,10 @@ class Post(models.Model):
     images = models.ImageField(null=True, upload_to='profilepics')
     slug = models.SlugField(blank=True, null=True, unique=True)
 
+    class Meta:
+        ordering = ['-pub_date']
+        
+
     def __str__(self):
         return self.title
     
@@ -52,8 +56,11 @@ class Article(models.Model):
     thumbnail = models.ImageField(upload_to='profilepics')
     slug = models.SlugField(blank=True, null=True, unique=True)
 
+    class Meta:
+        ordering = ['-timestamp']
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('article_detail', kwargs={'slug':self.slug})
+        return reverse('dashboard')
