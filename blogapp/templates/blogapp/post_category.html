@@ -11,6 +11,7 @@
             <div class="post-thumbnail"><a href="{% url 'post_detail' post.slug %}"><img src="{{post.images.url}}" alt="No" class="img-fluid"></a></div>
           <div class="post-details">
           <div class="post-meta d-flex justify-content-between">
+            <div  class="fas fa-clock">{{ post.pub_date }}</div>
             <div class="category">
               
               <a href="{% url 'post_detail' post.slug %}">{{post.category}}</a>

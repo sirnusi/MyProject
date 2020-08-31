@@ -11,10 +11,10 @@
               <div class="post-thumbnail"><a style="margin-top: -30px;" href=""><img src="{{article.thumbnail.url}}" alt="No" class="img-fluid"></a></div>
             <div class="post-details">
             <div class="post-meta d-flex justify-content-between">
-             
+              <div  class="fas fa-clock">{{ article.timestamp }}</div>
             </div>
             
-            <a href="{% url 'article_detail' article.slug %}">
+            <a style="margin-top: 10px;" href="{% url 'article_detail' article.slug %}">
               <h3 id="specialone" class="h4">{{article.title}}</h3>
             </a>
             
