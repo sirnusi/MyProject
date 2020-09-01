@@ -3,7 +3,7 @@ from blogapp import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    # path('post/<slug:slug>/comments', views.AddComment.as_view(), name='new_comment'),
+    path('post/<slug:slug>/comments', views.CommentView.as_view(), name='new_comment'),
     path('like/<int:pk>/', views.LikeView, name='like_post'),
     path('category/new/', views.NewCategory.as_view(), name='new_cat'),
     path('article/<slug:slug>/delete/', views.ArticleDelete.as_view(), name='article_delete'),

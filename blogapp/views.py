@@ -5,8 +5,10 @@ from django.views.generic.edit import FormView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+
 from .models import Post, Category, Article, Comment
 from .forms import PostForm, CommentForm
+
 
 # Create your views here.
 
@@ -37,7 +39,6 @@ class About(LoginRequiredMixin, TemplateView):
     template_name = 'blogapp/aboutme.html'
 
 
-
 class Dashboard(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         view = Home.as_view(
@@ -55,19 +56,13 @@ class PostDetail(LoginRequiredMixin, DetailView):
         object.save()
         return object
     
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['comments'] = Comment.objects.filter(post=self.get_object())    
-    #     context['form'] = CommentForm
-    #     return context
-
+    
 class CommentView(FormView):
     model = Comment
     template_name = 'blogapp/comment_form.html'
     form_class = CommentForm
-    success_url = 'home'
-
-
+    
+    
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
