@@ -40,12 +40,11 @@ class Post(models.Model):
 class Comment(models.Model):
     content = models.TextField()
     name = models.CharField(blank=True, null=True, unique=True, max_length=200)
-    by = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.post.title
+        return '%s - %s' % (self.post.title, self.name)
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
