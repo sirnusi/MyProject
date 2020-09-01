@@ -1,12 +1,12 @@
 from django.shortcuts import get_object_or_404, reverse
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import FormView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .models import Post, Category, Article
-from .forms import PostForm
+from .models import Post, Category, Article, Comment
+from .forms import PostForm, CommentForm
 
 # Create your views here.
 
@@ -33,21 +33,20 @@ class Home(ListView):
         return context
 
 
-@method_decorator(login_required, name='dispatch') 
-class About(TemplateView):
+class About(LoginRequiredMixin, TemplateView):
     template_name = 'blogapp/aboutme.html'
 
 
-@method_decorator(login_required, name='dispatch')
-class Dashboard(View):
+
+class Dashboard(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         view = Home.as_view(
             template_name='blogapp/admin_page.html',
         )
         return view(request, *args, **kwargs)
 
-@method_decorator(login_required, name='dispatch')
-class PostDetail(DetailView):
+
+class PostDetail(LoginRequiredMixin, DetailView):
     model = Post
 
     def get_object(self):
@@ -62,8 +61,14 @@ class PostDetail(DetailView):
     #     context['form'] = CommentForm
     #     return context
 
-@method_decorator(login_required, name='dispatch')
-class PostCreate(CreateView):
+class CommentView(FormView):
+    model = Comment
+    template_name = 'blogapp/comment_form.html'
+    form_class = CommentForm
+    success_url = 'home'
+
+
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
 
@@ -71,18 +76,18 @@ class PostCreate(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-@method_decorator(login_required, name='dispatch')
-class PostUpdate(UpdateView):
+
+class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ('title', 'author', 'category', 'content', 'images')
 
-@method_decorator(login_required, name='dispatch')
-class PostDelete(DeleteView):
+
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post 
     success_url = reverse_lazy('dashboard')
 
-@method_decorator(login_required, name='dispatch')
-class PostCategory(ListView):
+
+class PostCategory(LoginRequiredMixin, ListView):
     template_name = 'blogapp/post_category.html'
     paginate_by = 6
     
@@ -95,13 +100,12 @@ class PostCategory(ListView):
         context['category'] = self.category
         return context
 
-@method_decorator(login_required, name='dispatch')
-class NewCategory(CreateView):
+class NewCategory(LoginRequiredMixin, CreateView):
     model = Category
     fields = ('name',)
 
-@method_decorator(login_required, name='dispatch')
-class ArticleDetail(DetailView):
+
+class ArticleDetail(LoginRequiredMixin, DetailView):
     model = Article
 
     def get_object(self):
@@ -110,24 +114,24 @@ class ArticleDetail(DetailView):
         object.save()
         return object
 
-@method_decorator(login_required, name='dispatch')
-class ArticleCat(ListView):
+
+class ArticleCat(LoginRequiredMixin, ListView):
     model = Article
     paginate_by = 8
     template_name = 'blogapp/article_category.html'
     
-@method_decorator(login_required, name='dispatch')
-class ArticleCreate(CreateView):
+
+class ArticleCreate(LoginRequiredMixin, CreateView):
     model = Article
     fields = ('title', 'content', 'thumbnail')
 
-@method_decorator(login_required, name='dispatch')
-class ArticleUpdate(UpdateView):
+
+class ArticleUpdate(LoginRequiredMixin, UpdateView):
     model = Article
     fields = ('title', 'content', 'thumbnail')
 
-@method_decorator(login_required, name='dispatch')
-class ArticleDelete(DeleteView):
+
+class ArticleDelete(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy('dashboard')
 

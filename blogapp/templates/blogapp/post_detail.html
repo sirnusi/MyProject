@@ -35,7 +35,7 @@
           <!-- Comment -->
           <div class="post-comments">
             <header>
-              <h3 class="h6">Post Comment{{comments | pluralize }}<span class="no-of-comments">({{comments.count}})</span></h3>
+              <h3 class="h6">Comment{{comments | pluralize }}<span class="no-of-comments">({{comments.count}})</span></h3>
             </header>
             {% for comment in comments %}
             <div class="comment">
@@ -45,7 +45,7 @@
                   
                   <div class="image"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid rounded-circle"></div>
                   
-                  <div class="title"><strong>{{ comment.by.username }}</strong><span class="date">{{ comment.created_on | timesince }} ago</span></div>
+                  <div class="title"><strong>{{ comment.name }}</strong><span class="date">{{ comment.created_on | timesince }} ago</span></div>
                 </div>
               </div>
               <div class="comment-body">
@@ -57,7 +57,9 @@
               {% endfor %}
             </div>
             
-            <h4>Leave a comment on this post.</h4>
+            <header>
+              <h2>Post Comment</h2>
+            </header>
             
             <form action="." method="POST">
               {% csrf_token %}
