@@ -38,6 +38,7 @@
               <h3 class="h6">Comment{{comments | pluralize }}<span class="no-of-comments">({{comments.count}})</span></h3>
             </header>
             {% for comment in post.comments.all %}
+            {% csrf_token %}
             <div class="comment">
               
               <div class="comment-header d-flex justify-content-between">
@@ -57,10 +58,9 @@
               {% endfor %}
             </div>
             
-            <a href="{% url 'new_comment' post.slug %}">New Comments..</a>
           </div>
           <!-- End Comment -->
-
+          <a href="{% url 'new_comment' post.slug %}">New Comment</a>
           
         </div>
       </div>
