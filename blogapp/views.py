@@ -56,6 +56,9 @@ class PostDetail(LoginRequiredMixin, DetailView):
         object.save()
         return object
     
+    def get_context_data(self):
+        
+    
     
 class CommentView(FormView):
     model = Comment
