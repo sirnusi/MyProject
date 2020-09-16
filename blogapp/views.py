@@ -61,8 +61,7 @@ class CommentView(FormView):
     model = Comment
     template_name = 'blogapp/comment_form.html'
     form_class = CommentForm
-    success_url = 'blogapp/dashboard/'
-    
+    success_url = '/blogapp/post/comments/'
     
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
