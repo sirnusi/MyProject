@@ -56,14 +56,12 @@ class PostDetail(LoginRequiredMixin, DetailView):
         object.save()
         return object
     
-    def get_context_data(self):
-        
-    
     
 class CommentView(FormView):
     model = Comment
     template_name = 'blogapp/comment_form.html'
     form_class = CommentForm
+    success_url = 'blogapp/dashboard/'
     
     
 class PostCreate(LoginRequiredMixin, CreateView):
