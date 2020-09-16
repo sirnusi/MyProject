@@ -38,7 +38,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     content = models.TextField()
-    name = models.CharField(blank=True, null=True, unique=True, max_length=200)
+    name = models.CharField(max_length=200)
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
