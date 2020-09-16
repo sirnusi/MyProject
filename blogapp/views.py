@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, reverse
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import FormView
+from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -57,12 +57,19 @@ class PostDetail(LoginRequiredMixin, DetailView):
         return object
     
     
-class CommentView(FormView):
+class CommentView(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'blogapp/comment_form.html'
     form_class = CommentForm
-    success_url = '/blogapp/post/comments/'
-    
+
+    def form_valid(self, form):
+        post_id = self.kwargs.get('id')
+        post = get_object_or_404(Post, id=post_id)
+        self.success_url = f'/blogapp/post/{post.slug}/'
+        form.instance.post = post
+        return super().form_valid(form)
+
+
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
