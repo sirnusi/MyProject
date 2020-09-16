@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('post/comments/<int:id>/', views.CommentView.as_view(), name='new_comment'),
-    path('like/<int:pk>/', views.LikeView, name='like_post'),
+    path('article/like/<int:id>/', views.LikeView, name='like_post'),
     path('category/new/', views.NewCategory.as_view(), name='new_cat'),
     path('article/<slug:slug>/delete/', views.ArticleDelete.as_view(), name='article_delete'),
     path('article/<slug:slug>/update/', views.ArticleUpdate.as_view(), name='article_update'), 

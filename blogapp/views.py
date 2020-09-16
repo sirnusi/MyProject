@@ -12,16 +12,15 @@ from .forms import PostForm, CommentForm
 
 # Create your views here.
 
-def LikeView(request, pk):
+def LikeView(request, id):
     post = get_object_or_404(Article, id=request.POST.get('article_id'))
-    liked = False
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
         liked = False
     else:
         post.likes.add(request.user)
         liked = True
-    return HttpResponseRedirect(reverse('article_cat'))
+    return HttpResponseRedirect(f'/blogapp/article/{post.slug}/')
     
 
 class Home(ListView):
