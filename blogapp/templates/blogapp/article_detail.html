@@ -16,7 +16,7 @@
               <div class="avatar"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid"></div>
               <div class="title"><span>Written by TimilehinOJB</span></div></p>
               <div class="comments meta-last"><i style="margin-left: 10px;" class="fas fa-eye"> {{object.view_count}}</i>
-                <i style="margin-left: 10px;" class="fas fa-heart"> {{object.likes.count}} Like(s)</i>
+                <i style="margin-left: 10px;" class="fas fa-heart"> {{object.likes.count}} Like{{ object.likes.count | pluralize }}</i>
               </div>
           </div>
           <div class="post-body">
@@ -30,10 +30,10 @@
               {% if request.user.is_authenticated %}
                 {% if request.user in object.likes.all %}
                   <button type="submit" class="btn btn-danger">Unlike</button>
-                  {{object.likes.count}} Like(s)
+                  {{object.likes.count}} Like{{object.likes.count | pluralize }}
                 {% else %}
                 <button type="submit" class="btn btn-success">Like</button>
-                  {{object.likes.count}} Like(s)
+                  {{object.likes.count}} Like{{object.likes.count | pluralize }}
                 {% endif %}
               {% else %}
                 <a href="{% url 'login' %}">Log In, You Probably Forgot.</a>

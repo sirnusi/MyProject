@@ -76,7 +76,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ('title', 'author', 'category', 'content', 'images')
