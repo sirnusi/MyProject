@@ -24,7 +24,7 @@
               <div class="avatar"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid"></div>
               <div class="title"><span>Written by {{post.author.username }}</span></div></p>
               <div class="comments meta-last"><i style="margin-left: 10px;" class="fas fa-eye"> {{post.view_count}}</i>
-                <i style="margin-left: 10px;" class="fas fa-comment">{{comment.count}} No of comments</i>
+                <i style="margin-left: 10px;" class="fas fa-comment"> {{post.comments.count}} Comment{{post.comments.count | pluralize}}</i>
               </div>
           </div>
           <div class="post-body">
@@ -35,7 +35,7 @@
           <!-- Comment -->
           <div class="post-comments">
             <header>
-              <h3 class="h6">Comment{{comments | pluralize }}<span class="no-of-comments">({{comments.count}})</span></h3>
+              <h3 class="h6">Comment{{post.comments.count | pluralize }}<span class="no-of-comments">({{post.comments.count}})</span></h3>
             </header>
             {% for comment in post.comments.all %}
             
@@ -50,12 +50,12 @@
                 </div>
               </div>
               <div class="comment-body">
-                
                 <p>{{ comment.content }}</p>
               </div>
               {% empty %}
                 <h1>There are no comments yet!</h1>
               {% endfor %}
+              
             </div>
             
           </div>
