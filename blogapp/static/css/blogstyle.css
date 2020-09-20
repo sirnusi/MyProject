@@ -42,7 +42,7 @@ section {
     display: block;
 }
 body {
-    font-family: 'Crimson Text', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 1rem;
     font-weight: normal;
     line-height: 1.5;
@@ -50,7 +50,7 @@ body {
     background-color: #fff;
 }
 body {
-    font-family: 'Crimson Text', serif;
+    font-family: 'Libre Baskerville', serif;
     margin: 0;
     font-size: 1rem;
     font-weight: 400;
@@ -90,7 +90,7 @@ body {
     --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
 }
 html {
-    font-family: 'Crimson Text', serif;
+    font-family: 'Libre Baskerville', serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
