@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 
 from .models import Post, Category, Article, Comment
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, UserRegister
 
 
 # Create your views here.
@@ -20,11 +20,11 @@ def LikeView(request, id):
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(f'/blogapp/article/{post.slug}/')
-    
+
 
 class Home(ListView):
     model = Post
-    template_name = 'blogapp/home.html' 
+    template_name = 'blogapp/home.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,8 +53,8 @@ class PostDetail(LoginRequiredMixin, DetailView):
         object.view_count += 1
         object.save()
         return object
-    
-    
+
+
 class CommentView(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'blogapp/comment_form.html'
@@ -76,28 +76,31 @@ class PostCreate(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ('title', 'author', 'category', 'content', 'images')
 
 
 class PostDelete(LoginRequiredMixin, DeleteView):
-    model = Post 
+    model = Post
     success_url = reverse_lazy('dashboard')
 
 
 class PostCategory(LoginRequiredMixin, ListView):
     template_name = 'blogapp/post_category.html'
     paginate_by = 6
-    
+
     def get_queryset(self):
-        self.category = get_object_or_404(Category, name=self.kwargs['category'])
+        self.category = get_object_or_404(
+            Category, name=self.kwargs['category'])
         return Post.objects.filter(category=self.category)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = self.category
         return context
+
 
 class NewCategory(LoginRequiredMixin, CreateView):
     model = Category
@@ -118,7 +121,7 @@ class ArticleCat(LoginRequiredMixin, ListView):
     model = Article
     paginate_by = 8
     template_name = 'blogapp/article_category.html'
-    
+
 
 class ArticleCreate(LoginRequiredMixin, CreateView):
     model = Article
@@ -134,3 +137,8 @@ class ArticleDelete(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy('dashboard')
 
+
+class RegisterUser(CreateView):
+    form_class = UserRegister
+    success_url = reverse_lazy('login')
+    template_name = 'blogapp/signup.html'

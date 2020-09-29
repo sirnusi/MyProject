@@ -3,41 +3,44 @@
 
 {% load static %}
 {% block body_block %}
-<section style="margin-top: -65px;" class="latest-posts"> 
+<section style="margin-top: -65px;" class="latest-posts">
   <div class="container">
-      <div class="row">
-        {% for post in post_list %}
-          <div class="post col-md-5">
-            <div class="post-thumbnail"><a href="{% url 'post_detail' post.slug %}"><img src="{{post.images.url}}" alt="No" class="img-fluid"></a></div>
-          <div class="post-details">
+    <div class="row">
+      {% for post in post_list %}
+      <div class="post col-md-5">
+        <div class="post-thumbnail"><a href="{% url 'post_detail' post.slug %}"><img src="{{post.images.url}}" alt="No"
+              class="img-fluid"></a></div>
+        <div class="post-details">
           <div class="post-meta d-flex justify-content-between">
-            <div  class="fas fa-clock">{{ post.pub_date }}</div>
+            <div class="fas fa-clock">{{ post.pub_date }}</div>
             <div class="category">
-              
+
               <a href="{% url 'post_detail' post.slug %}">{{post.category}}</a>
-              
+
             </div>
           </div>
-          
+
           <a href="{% url 'post_detail' post.slug %}">
             <h3 id="specialone" class="h4">{{post.title}}</h3>
           </a>
-          
-            <p style="margin: -15px;" class="text-muted">{{ post.content|truncatewords:20 | safe }}</p>
-            <div class="post-footer d-flex align-items-center">
-              <p href="#" class="author d-flex align-items-center flex-wrap">
-                <div class="avatar"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid"></div>
-                <div class="title"><span>Written by {{post.author}}</span></div></p>
-                
-            </div>
+
+          <p style="margin-top: -15px;" class="text-muted">{{ post.content|truncatewords:20 | safe }}</p>
+          <div class="post-footer d-flex align-items-center">
+            <p href="#" class="author d-flex align-items-center flex-wrap">
+            <div class="avatar"><img src="{% static 'images/earth.jpg' %}" alt="..." class="img-fluid"></div>
+            <div class="title"><span>Written by {{post.author}}</span></div>
+            </p>
+
           </div>
         </div>
-        {% empty %}
-            <h1>There are no post yet!. Please <a href="{% url 'post_new' %}">Create A Post.</a></h1></p>
+      </div>
+      {% empty %}
+      <h1>There are no post yet!. Please <a href="{% url 'post_new' %}">Create A Post.</a></h1>
+      </p>
       {% endfor %}
     </div>
   </div>
-</section> 
+</section>
 
 {% include 'blogapp/pagination.html' %}
 

@@ -79,34 +79,36 @@
 
 <!--Latest Posts-->
 
-<section class="latest-posts"> 
+<section class="latest-posts">
   <div class="container">
-    <header> 
+    <header>
       <h2>Latest from the blog</h2>
       <p class="text-big">We have the latest posts from each categories</p>
     </header>
     <div class="row">
       {% for post in posts %}
       <div class="post col-lg-4 col-md-6 col-sm-6 thumbnail">
-        <div class="post-thumbnail"><a href="{% url 'post_detail' post.slug %}"><img src="{{post.images.url}}" alt="No" class="img-fluid"></a></div>
+        <div class="post-thumbnail"><a href="{% url 'post_detail' post.slug %}"><img src="{{post.images.url}}" alt="No"
+              class="img-fluid"></a></div>
         <div class="post-details">
           <div class="post-meta d-flex justify-content-between">
-            <div  class="fas fa-clock">{{ post.pub_date }}</div>
+            <div class="fas fa-clock">{{ post.pub_date }}</div>
             <div class="category">
-             
+
               <a href="{% url 'post_detail' post.slug %}">{{post.category}}</a>
-              
+
             </div>
           </div><a href="{% url 'post_detail' post.slug %}">
-            <h3 id="specialone" class="h4">{{post.title}}</h3></a>
+            <h3 id="specialone" class="h4">{{post.title}}</h3>
+          </a>
           <p style="margin-top: -25px;" class="text-muted">{{post.content | truncatewords:15 | safe}}</p>
         </div>
       </div>
       {% endfor %}
     </div>
-    
-    </div>
-  
+
+  </div>
+
 </section>
 
 </div>
@@ -114,8 +116,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h2 style="color: white;">This is the greatest path I ever took, becoming a Programmer. 
-          Let me tell you my story to give you a bit of encouragement. It is a path you take that you will never regret, just devote your time and be FOCUS.</h2><a href="{% url 'about' %}" class="hero-link">Read my story</a>
+        <h2 style="color: white;">This is the greatest path I ever took, becoming a Programmer.
+          Let me tell you my story to give you a bit of encouragement. It is a path you take that you will never regret,
+          just devote your time and be FOCUS.</h2><a href="{% url 'about' %}" class="hero-link">Read my story</a>
       </div>
     </div>
   </div>
@@ -124,18 +127,21 @@
 <!--Articles For the Blg-->
 <div class="container">
   <hr>
-  <a style="color: black;" href="{% url 'article_cat' %}"><h2>Checkout Articles from TimilehinOJB</h2></a>
+  <a style="color: black;" href="{% url 'article_cat' %}">
+    <h2>Checkout Articles from TimilehinOJB</h2>
+  </a>
   <div class="row">
-   {% for art in articles %}
-    <div class="col-lg-4 col-md-6 col-sm-6"><a href="{% url 'article_detail' art.slug %}"><img class="img-fluid" src="{{art.thumbnail.url}}"></a>
-      <a style="color: black;" href="{% url 'article_detail' art.slug %}">
+    {% for art in articles %}
+    <div class="col-lg-4 col-md-6 col-sm-6"><a href="{% url 'article_detail' art.slug %}"><img class="img-fluid"
+          src="{{art.thumbnail.url}}"></a>
+      <a style="color: black; margin-top: 10px;" href="{% url 'article_detail' art.slug %}">
         <h5>
           {{art.title}}
         </h5>
       </a>
-    
+
     </div>
-   {% endfor %} 
+    {% endfor %}
   </div>
 </div>
 
@@ -149,12 +155,18 @@
         </div>
         <div class="contact-details">
           <p>Phone: <a href="tel:09065636501">09065636501</a></p>
-          <p>Email:<a style="text-decoration:none;" href="mailto:davidsanusi360@gmail.com, timilehinojobello@gmail.com">davidsanusi360@gmail.com, timilehinojobello@gmail.com</a></p>
+          <p>Email:<a style="text-decoration:none;"
+              href="mailto:davidsanusi360@gmail.com, timilehinojobello@gmail.com">davidsanusi360@gmail.com,
+              timilehinojobello@gmail.com</a></p>
           <ul class="social-menu">
-            <li class="list-inline-item"><a target="_blank" href="https://www.facebook.com/profile.php?id=100009887508687"><i class="fab fa-facebook"></i></a></li>
-            <li class="list-inline-item"><a target="_blank" href="https://twitter.com/davidsanusi3"><i class="fab fa-twitter"></i></a></li>
-            <li class="list-inline-item"><a target="_blank" href="https://www.instagram.com/sir_nusi_/"><i class="fab fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a target="_blank" href="https://www.linkedin.com/in/sanusi-david-4b93251a3/"><i class="fab fa-linkedin"></i></a></li>
+            <li class="list-inline-item"><a target="_blank"
+                href="https://www.facebook.com/profile.php?id=100009887508687"><i class="fab fa-facebook"></i></a></li>
+            <li class="list-inline-item"><a target="_blank" href="https://twitter.com/davidsanusi3"><i
+                  class="fab fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a target="_blank" href="https://www.instagram.com/sir_nusi_/"><i
+                  class="fab fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a target="_blank"
+                href="https://www.linkedin.com/in/sanusi-david-4b93251a3/"><i class="fab fa-linkedin"></i></a></li>
           </ul>
         </div>
       </div>
@@ -174,7 +186,7 @@
           </ul> -->
         </div>
       </div>
-      
+
     </div>
   </div>
   <div class="copyrights">
@@ -184,7 +196,8 @@
           <p>© 2020. All rights reserved. Written and Developed by Sanusi David.</p>
         </div>
         <div class="col-md-6 text-right">
-          <p>Template By <a style="color: black;"href="https://bootstrapious.com/p/bootstrap-carousel" class="text-white">Bootstrapious</a>
+          <p>Template By <a style="color: black;" href="https://bootstrapious.com/p/bootstrap-carousel"
+              class="text-white">Bootstrapious</a>
             <!-- Please do not remove the backlink to Bootstrap Temple unless you purchase an attribution-free license @ Bootstrap Temple or support us at http://bootstrapious.com/donate. It is part of the license conditions. Thanks for understanding :)                         -->
           </p>
         </div>
@@ -193,5 +206,5 @@
   </div>
 </footer>
 
- 
+
 {% endblock %}
